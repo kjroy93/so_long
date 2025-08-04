@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:46:24 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/05 01:00:43 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/05 01:25:29 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	read_maps(int fd, t_map *map, t_list **lines)
 			ft_error("Error: The line was not duplicated in read_maps");
 		ft_lstadd_back(lines, ft_lstnew(dup));
 		free(line);
+		free(dup);
 		line_count++;
 		line = get_next_line(fd);
 	}
