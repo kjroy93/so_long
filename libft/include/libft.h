@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:13:05 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/03 14:51:25 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/04 23:27:24 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_putpointer(unsigned long ptr);
 int		ft_putunsigned(unsigned int n);
 int		ft_printf(const char *format, ...);
 
-// get_next_line
+// function that reads a file from a file descriptor
 char	*get_next_line(int fd);
 
 #endif
