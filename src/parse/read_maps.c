@@ -6,12 +6,22 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:46:24 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/05 01:25:29 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/05 01:29:26 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
+
+static void	s_init(t_map *map)
+{
+	map->collectibles_counts = 0;
+	map->player_counts = 0;
+	map->exit_counts = 0;
+	map->height = 0;
+	map->width = 0;
+	map->grid = NULL;
+}
 
 static void	read_maps(int fd, t_map *map, t_list **lines)
 {
