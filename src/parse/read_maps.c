@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:46:24 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/05 01:29:26 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/05 12:48:31 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	read_maps(int fd, t_map *map, t_list **lines)
 
 	line_count = 0;
 	line = get_next_line(fd);
+	if (!line)
+		return ;
 	while (line != NULL)
 	{
 		rectangular_map_parse(map, line);
@@ -39,14 +41,11 @@ static void	read_maps(int fd, t_map *map, t_list **lines)
 		if (!dup)
 			ft_error("Error: The line was not duplicated in read_maps");
 		ft_lstadd_back(lines, ft_lstnew(dup));
-		free(line);
-		free(dup);
 		line_count++;
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
-	if (line_count == 0)
-		ft_error("Error: the map file was empty");
 }
 
 void	parse_map(t_map *map, const char *filename)
