@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 00:46:24 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/05 12:48:31 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/08/05 21:54:41 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ static void	read_maps(int fd, t_map *map, t_list **lines)
 			ft_error("Error: The line was not duplicated in read_maps");
 		ft_lstadd_back(lines, ft_lstnew(dup));
 		line_count++;
+		free(line);
 		line = get_next_line(fd);
 	}
+	if (line_count == 0)
+		ft_error("Error: Empty map file");
 	free(line);
 	close(fd);
 }
@@ -59,5 +62,11 @@ void	parse_map(t_map *map, const char *filename)
 	if (fd < 0)
 		ft_error("Error: File could not be opened");
 	read_maps(fd, map, &lines);
+	validate_walls(lines, map, map->width);
 	update_create(map, ft_lstsize(lines), lines);
+}
+
+void	flood_fill(t_map *map, t_map *start)
+{
+	
 }
