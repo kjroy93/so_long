@@ -2,11 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug push_swap",
+      "name": "Debug so_long",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/push_swap",
-      "args": ["1", "23456"], // puedes cambiarlo por lo que quieras
+      "program": "${workspaceFolder}/so_long",
+      "args": ["map2.ber"], // puedes cambiarlo por lo que quieras
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
@@ -19,7 +19,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "build push_swap",
+      "preLaunchTask": "build so_long",
       "miDebuggerPath": "/usr/bin/gdb"
     }
   ]

@@ -6,67 +6,96 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/05 21:54:41 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:23:33 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
 
-static void	s_init(t_map *map)
+static void	remove_newline(char *line)
 {
-	map->collectibles_counts = 0;
-	map->player_counts = 0;
-	map->exit_counts = 0;
-	map->height = 0;
-	map->width = 0;
-	map->grid = NULL;
-}
+	size_t	len;
 
-static void	read_maps(int fd, t_map *map, t_list **lines)
-{
-	int		line_count;
-	char	*line;
-	char	*dup;
-
-	line_count = 0;
-	line = get_next_line(fd);
 	if (!line)
 		return ;
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+}
+
+static bool	validate_line_not_empty(char *line)
+{
+	if (!line || line[0] == '\0')
+		return (false);
+	return (true);
+}
+
+static bool	read_map_lines(int fd, t_map *map, t_list **lines)
+{
+	char	*line;
+
+	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		rectangular_map_parse(map, line);
-		count_elements(map, line);
-		dup = ft_strdup(line);
-		if (!dup)
-			ft_error("Error: The line was not duplicated in read_maps");
-		ft_lstadd_back(lines, ft_lstnew(dup));
-		line_count++;
+		remove_newline(line);
+		if (!validate_line_not_empty(line))
+			return (error_free(line, fd, "Error: No line\n"), false);
+		if (map->width == 0)
+			map->width = (int)ft_strlen(line);
+		else if (((int)ft_strlen(line)) != map->width)
+			return (error_free(line, fd, "Error: no parallelogram.\n"), false);
+		if (!count_elements(map, line))
+			return (error_free(line, fd, "Error: wrong element\n"), false);
+		if (!create_lst(lines, line, &map->height))
+			return (error_free(line, fd, "Error: array line NULL\n"), false);
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (line_count == 0)
-		ft_error("Error: Empty map file");
-	free(line);
-	close(fd);
+	return (*lines != NULL);
 }
 
-void	parse_map(t_map *map, const char *filename)
+static bool	validate_walls(t_list **lines, t_map *map)
 {
-	t_list	*lines;
-	int		fd;
+	t_list	*tmp;
+	char	*line;
 
-	s_init(map);
-	lines = NULL;
-	fd = open(filename, O_RDONLY);
+	tmp = *lines;
+	line = (char *)tmp->content;
+	while (*line)
+	{
+		if (*line++ != '1')
+			return (ft_printf("Error: Map is open from the top\n"), false);
+	}
+	while (tmp->next && tmp->next->next)
+	{
+		line = (char *)tmp->next->content;
+		if (line[0] != '1' || line[map->width - 1] != '1')
+			return (ft_printf("Error: Map is open on the sides\n"), false);
+		tmp = tmp->next;
+	}
+	line = (char *)tmp->next->content;
+	while (*line)
+	{
+		if (*line++ != '1')
+			return (ft_printf("Error: Map is open from the bottom\n"), false);
+	}
+	return (true);
+}
+
+bool	parse_map(char *file, t_map *map, t_list **lst)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		ft_error("Error: File could not be opened");
-	read_maps(fd, map, &lines);
-	validate_walls(lines, map, map->width);
-	update_create(map, ft_lstsize(lines), lines);
-}
-
-void	flood_fill(t_map *map, t_map *start)
-{
-	
+		return (ft_printf("Error: file could not be opened"), false);
+	if (!read_map_lines(fd, map, lst))
+		return (cleanup_and_return(lst, map, false));
+	if (!validate_walls(lst, map))
+		return (cleanup_and_return(lst, map, false));
+	if (!content_create(map, *lst))
+		return (cleanup_and_return(lst, map, false));
+	ft_lstclear(lst, free);
+	return (true);
 }

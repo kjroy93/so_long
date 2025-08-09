@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/05 20:55:34 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:15:21 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include "libft.h"
+# include <stdbool.h>
 
 typedef struct s_map
 {
@@ -25,12 +26,32 @@ typedef struct s_map
 	char	**grid;
 }	t_map;
 
-void	ft_error(const char *message);
-void	parse_map(t_map *map, const char *filename);
+//  Free the grid of the map structure.
+void	free_grid(char **grid);
+
+void	error_free(char *line, int fd, char *message);
+
+// Free and returns when the parsers fails.
+bool	cleanup_and_return(t_list **lst, t_map *map, bool status);
+
+// Clean exit of the program.
+void	ft_error(char *message);
+
+// Functions to parse the maps.
+bool	parse_map(char *file, t_map *map, t_list **lst);
+
+// Function to create the array that is the map.
 char	**create_array(t_list *list);
-void	update_create(t_map *map, int line_count, t_list *lines);
-void	count_elements(t_map *map, char *line);
-void	rectangular_map_parse(t_map *map, char *line);
-void	validate_walls(t_list *lines, t_map *map, int map_len);
+
+// Function that creates the grid and validates the player collectibles and exit.
+bool	content_create(t_map *map, t_list *lines);
+
+// Function that counts the elements in the lines.
+// Inplace, when get_next_line reads.
+bool	count_elements(t_map *map, char *line);
+
+// Create the listt that contains a single line to create the arrays later.
+// Update the lenght of the map. 
+bool	create_lst(t_list **nodes, char *line, int *count);
 
 #endif

@@ -3,106 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 18:47:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/03 14:49:59 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/06/30 19:22:12 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/08/09 22:07:03 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*update_line(char *chunk)
+static char	*read_and_accumulate(int fd, char *chunk)
 {
-	char	*result;
-	size_t	len;
-	size_t	i;
+	char	buffer[BUFFER_SIZE + 1];
+	ssize_t	bytes;
+	char	*tmp;
 
-	if (!chunk)
-		return (NULL);
-	i = 0;
-	len = ft_strlen(chunk);
-	while (chunk[i] && chunk[i] != '\n')
-		i++;
-	if (chunk[i] == '\n')
+	bytes = 1;
+	while (!ft_strchr(chunk, '\n') && bytes > 0)
 	{
-		result = ft_substr(chunk, i + 1, len - (i + 1));
-		return (result);
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes < 0)
+			return (free(chunk), NULL);
+		buffer[bytes] = '\0';
+		tmp = ft_strjoin(chunk, buffer);
+		free(chunk);
+		chunk = tmp;
+		if (!chunk)
+			return (NULL);
 	}
-	else
-		return (NULL);
+	return (chunk);
 }
 
 static char	*extract_line(char *chunk)
 {
-	char	*result;
 	size_t	i;
+	char	*line;
 
+	if (!chunk || chunk[0] == '\0')
+		return (NULL);
 	i = 0;
 	while (chunk[i] && chunk[i] != '\n')
 		i++;
 	if (chunk[i] == '\n')
-	{
-		result = ft_substr(chunk, 0, i + 1);
-		return (result);
-	}
-	else
-	{
-		result = ft_strdup(chunk);
-		return (result);
-	}
+		i++;
+	line = ft_substr(chunk, 0, i);
+	return (line);
 }
 
-static char	*read_and_accumulate(int fd, char *chunk, char *buffer)
+static char	*update_chunk(char *chunk)
 {
-	ssize_t	bytes;
-	char	*tmp;
+	size_t	i;
+	char	*new_chunk;
 
-	bytes = 0;
-	while (!ft_strchr(chunk, '\n'))
-	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes <= 0)
-			break ;
-		buffer[bytes] = '\0';
-		if (!chunk)
-			chunk = ft_strdup("");
-		tmp = ft_strjoin(chunk, buffer);
-		free(chunk);
-		chunk = tmp;
-	}
-	free(buffer);
-	if (bytes < 0)
-	{
-		free(chunk);
-		return (NULL);
-	}
-	return (chunk);
+	i = 0;
+	while (chunk[i] && chunk[i] != '\n')
+		i++;
+	if (!chunk[i])
+		return (free(chunk), NULL);
+	new_chunk = ft_strdup(chunk + i + 1);
+	free(chunk);
+	return (new_chunk);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*chunk;
 	char		*line;
-	char		*tmp;
-	char		*buffer;
 
+	if (fd == -1)
+	{
+		free(chunk);
+		chunk = NULL;
+		return (NULL);
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	chunk = read_and_accumulate(fd, buffer, chunk);
+	if (!chunk)
+		chunk = ft_strdup("");
 	if (!chunk)
 		return (NULL);
-	if (chunk[0] == '\0')
+	chunk = read_and_accumulate(fd, chunk);
+	if (!chunk || chunk[0] == '\0')
 	{
 		free(chunk);
 		chunk = NULL;
 		return (NULL);
 	}
 	line = extract_line(chunk);
-	tmp = update_line(chunk);
-	chunk = tmp;
+	chunk = update_chunk(chunk);
 	return (line);
 }

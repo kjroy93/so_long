@@ -12,7 +12,7 @@ INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
 # Source files listed manually
-SRC = 
+SRC = src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c	\
 
 # Object files
 OBJ = $(SRC:.c=.o)
@@ -36,9 +36,9 @@ $(LIBFT):
 	@echo "⚙️ 📘 Compiling libft..."
 	@$(MAKE) -C $(LIBFT_DIR) > /dev/null 2>&1
 
-# Compile push_swap
+# Compile so_long
 $(NAME): $(OBJ_FILES)
-	@echo "🔢 42: Compiling push_swap..."
+	@echo "🎮 [42] Compiling so_long..."
 	@$(CC) $(CFLAGS) $^ $(LIBFT) -o $@
 
 # Compile each .c to .o inside obj directory
