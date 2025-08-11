@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:55 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/11 15:43:33 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/11 15:47:27 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ bool	cleanup_and_return(t_list **lst, t_map *map, bool status)
 void	error_free(char *line, int fd, char *message)
 {
 	close(fd);
+	free(line);
 	get_next_line(-1);
-	ft_printf(message, line);
+	ft_printf(message);
 }
 
-void	ft_error(char *message, void *ptr)
+void	ft_error(char *message)
 {
-	if (ptr)
-		free(ptr);
 	write(2, message, ft_strlen(message));
 	exit(EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/09 22:23:33 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:53:43 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,20 @@ bool	parse_map(char *file, t_map *map, t_list **lst)
 	if (fd < 0)
 		return (ft_printf("Error: file could not be opened"), false);
 	if (!read_map_lines(fd, map, lst))
+	{
+		close(fd);
 		return (cleanup_and_return(lst, map, false));
+	}
 	if (!validate_walls(lst, map))
+	{
+		close(fd);
 		return (cleanup_and_return(lst, map, false));
+	}
 	if (!content_create(map, *lst))
+	{
+		close(fd);
 		return (cleanup_and_return(lst, map, false));
+	}
 	ft_lstclear(lst, free);
 	return (true);
 }
