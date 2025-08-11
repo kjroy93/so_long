@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/09 22:15:21 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:54:29 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,8 @@ bool	count_elements(t_map *map, char *line);
 // Create the listt that contains a single line to create the arrays later.
 // Update the lenght of the map. 
 bool	create_lst(t_list **nodes, char *line, int *count);
+
+// Function to determine if the map .name is valid
+char	*check_file(char **argv);
 
 #endif

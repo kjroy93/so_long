@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:37:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/09 22:24:41 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:40:35 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,21 @@ static void	map_init(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	char	filepath[512];
-	char	*file;
+	char	*filepath;
+	bool	answer;
 	t_map	*map;
 	t_list	*lst;
 
-	map = malloc(sizeof(t_map));
-	lst = NULL;
 	if (argc < 2)
 		return (write(1, "\n", 1), 1);
+	filepath = check_file(argv);
+	map = malloc(sizeof(t_map));
+	if (!map)
+		ft_error("Error: allocation failed for map.\n");
+	lst = NULL;
 	map_init(map);
-	file = argv[1];
-	ft_strlcpy(filepath, "src/maps/", sizeof(filepath));
-	ft_strlcat(filepath, file, sizeof(filepath));
-	bool answer = parse_map(filepath, map, &lst);
+	answer = parse_map(filepath, map, &lst);
+	free(filepath);
 	if (!answer)
 	{
 		free(map);

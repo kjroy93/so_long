@@ -13,6 +13,7 @@ LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
 # Source files listed manually
 SRC = src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c	\
+		src/parse/filename.c													\
 
 # Object files
 OBJ = $(SRC:.c=.o)
