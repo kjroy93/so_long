@@ -43,7 +43,7 @@ mlx42: $(MLX42_LIB)
 $(MLX42_LIB):
 	@cmake -B $(MLX42_DIR)/build $(MLX42_DIR) > /dev/null
 	@make -C $(MLX42_DIR)/build -j4 > /dev/null
-	@echo "📦 Compiling MLX42."
+	@echo "📦 Compiling MLX42..."
 
 # Compile libft if not compiled or outdated
 $(LIBFT):
@@ -52,7 +52,7 @@ $(LIBFT):
 
 # Compile so_long executable
 $(NAME): $(OBJ_FILES)
-	@echo "🎮 [42] Compiling so_long..."
+	@echo "🎮 Compiling so_long..."
 	@$(CC) $(CFLAGS) $^ $(LIBFT) $(LDLIBS) -o $@
 
 # Compile each .c to .o inside obj directory

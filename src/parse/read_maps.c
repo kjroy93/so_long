@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/11 18:49:09 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/11 20:39:06 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ bool	parse_map(char *file, t_map *map, t_list **lst)
 		close(fd);
 		return (cleanup_and_return(lst, map, false));
 	}
+	close(fd);
 	ft_lstclear(lst, free);
 	return (true);
 }
