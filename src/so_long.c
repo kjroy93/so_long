@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:37:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/11 15:47:51 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/11 19:00:12 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,26 @@ int	main(int argc, char **argv)
 {
 	char	*filepath;
 	bool	answer;
-	t_map	*map;
+	t_game	*game;
 	t_list	*lst;
 
 	if (argc < 2)
 		return (write(1, "\n", 1), 1);
 	filepath = check_file(argv);
-	map = malloc(sizeof(t_map));
-	if (!map)
-		ft_error("Error: allocation failed for map.\n");
+	game = malloc(sizeof(t_game));
+	if (!game)
+		ft_error("Error: allocation failed for game.\n");
 	lst = NULL;
-	map_init(map);
-	answer = parse_map(filepath, map, &lst);
+	map_init(&game->map);
+	answer = parse_map(filepath, &game->map, &lst);
 	free(filepath);
 	if (!answer)
 	{
-		free(map);
+		free(game);
 		return (1);
 	}
-	free_grid(map->grid);
-	free(map);
+	answer = validate_path(game);
+	free_grid(game->map.grid);
+	free(game);
 	return (0);
 }

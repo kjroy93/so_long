@@ -11,17 +11,23 @@ LIBFT_DIR = libft
 INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
-# Source files listed manually
-SRC = src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c	\
-		src/parse/filename.c													\
+# MLX42 variables
+MLX42_DIR := ./MLX42
+MLX42_INCLUDE := $(MLX42_DIR)/include
+MLX42_LIB := $(MLX42_DIR)/build/libmlx42.a
+MLX42_LIBS := -lglfw -ldl -lm -pthread -lGL
+LDLIBS := $(MLX42_LIB) $(MLX42_LIBS)
 
-# Object files
-OBJ = $(SRC:.c=.o)
+# Source files listed manually
+SRC = 	src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c	\
+		src/parse/filename.c src/parse/playable_map.c								\
+
+# Object files (put into obj folder)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE)
+CFLAGS = -Wall -Wextra -Werror -g -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE) -I$(MLX42_INCLUDE)
 
 # Static libft library
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -30,17 +36,24 @@ LIBFT = $(LIBFT_DIR)/libft.a
 #                RULES                    #
 ###########################################
 
-all: $(LIBFT) $(NAME)
+all: mlx42 $(LIBFT) $(NAME)
+
+# Compile MLX42 library with CMake
+mlx42: $(MLX42_LIB)
+$(MLX42_LIB):
+	@cmake -B $(MLX42_DIR)/build $(MLX42_DIR) > /dev/null
+	@make -C $(MLX42_DIR)/build -j4 > /dev/null
+	@echo "📦 Compiling MLX42."
 
 # Compile libft if not compiled or outdated
 $(LIBFT):
 	@echo "⚙️ 📘 Compiling libft..."
 	@$(MAKE) -C $(LIBFT_DIR) > /dev/null 2>&1
 
-# Compile so_long
+# Compile so_long executable
 $(NAME): $(OBJ_FILES)
 	@echo "🎮 [42] Compiling so_long..."
-	@$(CC) $(CFLAGS) $^ $(LIBFT) -o $@
+	@$(CC) $(CFLAGS) $^ $(LIBFT) $(LDLIBS) -o $@
 
 # Compile each .c to .o inside obj directory
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -52,15 +65,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 ###########################################
 
 clean:
-	@echo "🧹 Swoosh swoosh... Removing object files..."
+	@echo "Swosh 🧹 Swosh Removing object files..."
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) clean > /dev/null 2>&1
+	@rm -rf $(MLX42_DIR)/build
 
 fclean: clean
-	@echo "🧹🧹 Swoosh swoosh... Removing everything..."
+	@echo "Swosh 🧹🧹 Swosh Removing executable and libraries..."
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean > /dev/null 2>&1
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all mlx42 clean fclean re
