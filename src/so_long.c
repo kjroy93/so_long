@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:37:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/11 19:00:12 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/11 20:42:15 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	t_list	*lst;
 
 	if (argc < 2)
-		return (write(1, "\n", 1), 1);
+		return (write(2, "\n", 1), 1);
 	filepath = check_file(argv);
 	game = malloc(sizeof(t_game));
 	if (!game)
