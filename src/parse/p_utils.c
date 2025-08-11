@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 19:09:45 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/09 22:20:55 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:06:50 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,6 @@ bool	count_elements(t_map *map, char *line)
 			return (false);
 		}
 		i++;
-	}
-	return (true);
-}
-
-bool	validate_walls(t_list *lines, int map_len)
-{
-	t_list	*tmp;
-	char	*line;
-
-	tmp = lines;
-	line = (char *)tmp->content;
-	while (*line)
-	{
-		if (*line++ != '1')
-			return (ft_printf("Erro: Map is open from the top\n"), false);
-	}
-	while (tmp->next && tmp->next->next)
-	{
-		line = (char *)tmp->next->content;
-		if (line[0] != '1' || line[map_len - 1] != '1')
-			return (ft_printf("Error: Map is open on the sides\n"), false);
-		tmp = tmp->next;
-	}
-	line = (char *)tmp->next->content;
-	while (*line)
-	{
-		if (*line != '1')
-			return (ft_printf("Error: Map open from the bottom\n"), false);
-		line++;
 	}
 	return (true);
 }
