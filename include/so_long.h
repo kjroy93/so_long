@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/11 18:56:19 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:43:49 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,35 @@
 
 # include "libft.h"
 # include <stdbool.h>
-#include <MLX42/MLX42.h>
+# include <MLX42/MLX42.h>
 # define TILE	64
+
+typedef struct s_textures
+{
+	mlx_image_t	*grass;
+	mlx_image_t	*wall;
+	mlx_image_t	*exit;
+	mlx_image_t	*collect;
+	mlx_image_t	*player;
+}	t_textures;
+
+typedef struct s_player
+{
+	mlx_image_t	*right;
+	mlx_image_t	*left;
+	mlx_image_t	*front;
+	mlx_image_t	*back;
+	int			anim_frame;
+	char		direction;
+}	t_player;
+
+typedef struct s_exit
+{
+	mlx_image_t	*sprites;
+	int			exit_x;
+	int			exit_y;
+	int			anim_frame;
+}	t_exit;
 
 typedef struct s_map
 {
@@ -28,20 +55,18 @@ typedef struct s_map
 	char	**grid;
 }	t_map;
 
-typedef struct s_player
-{
-	mlx_image_t	*right[3];
-	mlx_image_t	*left[3];
-	mlx_image_t	*front[3];
-	mlx_image_t	*back[3];
-	int			anim_frame;
-	char		direction;
-}	t_player;
-
 typedef struct s_game
 {
+	mlx_t		*mlx;
+	mlx_image_t	*player_img;
+	mlx_image_t	*move_txt;
 	t_map		map;
 	t_player	player;
+	t_exit		exit;
+	t_textures	tx;
+	void		*window;
+	int			points;
+	int			moves;
 	int			player_x;
 	int			player_y;
 	int			screen_h;
@@ -81,5 +106,13 @@ char	*check_file(char **argv);
 
 // Function that verifies if the game is playable
 bool	validate_path(t_game *game);
+
+void	clean_exit(t_game *game, int code);
+
+void	ft_key_hook(mlx_key_data_t keydata, void *param);
+
+void	ft_close_window(void *param);
+
+void	disable_collectible(t_game *game, int x, int y);
 
 #endif

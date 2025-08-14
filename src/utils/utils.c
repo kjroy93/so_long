@@ -6,12 +6,11 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:55 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/11 15:47:27 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:27:23 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft.h"
 
 void	free_grid(char **grid)
 {
@@ -49,4 +48,16 @@ void	ft_error(char *message)
 {
 	write(2, message, ft_strlen(message));
 	exit(EXIT_FAILURE);
+}
+
+void	clean_exit(t_game *game, int code)
+{
+	if (game->map.grid)
+		free_grid(game->map.grid);
+	if (game->mlx)
+	{
+		mlx_close_window(game->mlx);
+		mlx_terminate(game->mlx);
+	}
+	exit(code);
 }

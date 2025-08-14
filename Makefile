@@ -19,8 +19,8 @@ MLX42_LIBS := -lglfw -ldl -lm -pthread -lGL
 LDLIBS := $(MLX42_LIB) $(MLX42_LIBS)
 
 # Source files listed manually
-SRC = 	src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c	\
-		src/parse/filename.c src/parse/playable_map.c								\
+SRC = 	src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c				\
+		src/parse/filename.c src/parse/playable_map.c src/keys/keys.c src/draw_textures/draw.c	\
 
 # Object files (put into obj folder)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
@@ -41,9 +41,9 @@ all: mlx42 $(LIBFT) $(NAME)
 # Compile MLX42 library with CMake
 mlx42: $(MLX42_LIB)
 $(MLX42_LIB):
+	@echo "📦 Compiling MLX42..."
 	@cmake -B $(MLX42_DIR)/build $(MLX42_DIR) > /dev/null
 	@make -C $(MLX42_DIR)/build -j4 > /dev/null
-	@echo "📦 Compiling MLX42..."
 
 # Compile libft if not compiled or outdated
 $(LIBFT):

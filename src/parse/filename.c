@@ -6,12 +6,11 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:18:14 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/11 15:30:50 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:01:23 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft.h"
 
 char	*check_file(char **argv)
 {

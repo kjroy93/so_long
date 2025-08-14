@@ -6,12 +6,11 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:14:59 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/11 19:53:04 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:00:54 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft.h"
 
 static char	**copy_map(t_game *game)
 {
