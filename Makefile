@@ -19,7 +19,7 @@ MLX42_LIBS := -lglfw -ldl -lm -pthread -lGL
 LDLIBS := $(MLX42_LIB) $(MLX42_LIBS)
 
 # Source files listed manually
-SRC = 	src/parse/read_maps.c src/parse/p_utils.c src/utils/utils.c src/so_long.c				\
+SRC = 	src/parse/read_map.c src/parse/p_utils.c src/utils/utils.c src/so_long.c				\
 		src/parse/filename.c src/parse/playable_map.c src/keys/keys.c src/draw_textures/draw.c	\
 
 # Object files (put into obj folder)

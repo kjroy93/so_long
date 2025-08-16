@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 19:09:45 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/14 17:01:12 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:18:04 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	count_elements(t_map *map, char *line)
 			map->collectibles_counts++;
 		else if (line[i] != '0' && line[i] != '1')
 		{
-			ft_printf("Error: The map content is not valid\n");
+			ft_printf("Error: The map content is not valid.\n");
 			return (false);
 		}
 		i++;
@@ -80,7 +80,7 @@ bool	content_create(t_map *map, t_list *lines)
 	if (map->player_counts != 1 || map->exit_counts < 1
 		|| map->collectibles_counts < 1)
 	{
-		ft_printf("Error: Missing Element\n");
+		ft_printf("Error: Missing Element.\n");
 		return (false);
 	}
 	map->grid = create_array(lines);

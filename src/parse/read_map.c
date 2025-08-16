@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_maps.c                                        :+:      :+:    :+:   */
+/*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/14 17:01:04 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:18:23 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ static bool	read_map_lines(int fd, t_map *map, t_list **lines)
 	{
 		remove_newline(line);
 		if (!validate_line_not_empty(line))
-			return (error_free(line, fd, "Error: No line\n"), false);
+			return (error_free(line, fd, "Error: No line.\n"), false);
 		if (map->width == 0)
 			map->width = (int)ft_strlen(line);
 		else if (((int)ft_strlen(line)) != map->width)
 			return (error_free(line, fd, "Error: no parallelogram.\n"), false);
 		if (!count_elements(map, line))
-			return (error_free(line, fd, "Error: wrong element\n"), false);
+			return (error_free(line, fd, "Error: wrong element.\n"), false);
 		if (!create_lst(lines, line, &map->height))
-			return (error_free(line, fd, "Error: array line NULL\n"), false);
+			return (error_free(line, fd, "Error: array line NULL.\n"), false);
 		free(line);
 		line = get_next_line(fd);
 	}

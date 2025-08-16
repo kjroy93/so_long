@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/14 17:43:49 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:07:53 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param);
 void	ft_close_window(void *param);
 
 void	disable_collectible(t_game *game, int x, int y);
+
+void	draw_all_textures(t_game *game, t_textures *tx);
 
 #endif
