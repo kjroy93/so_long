@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 16:14:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/14 17:46:00 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/08/18 19:40:02 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/08/18 21:14:17 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,21 @@ static void	move_player(t_game *game, int x, int y)
 	}
 	game->player_x = x;
 	game->player_y = y;
+	game->tx.player->instances[0].x = x * TILE;
+	game->tx.player->instances[0].y = y * TILE;
 	game->moves++;
 	ft_printf("Moves: %i\n", game->moves);
 	if ((game->map.grid[y][x] == 'E'
 		&& game->points == game->map.collectibles_counts))
 	{
-		ft_printf("WINNER\n");
+		ft_printf("WINNER!\n");
 		clean_exit(game, 0);
 	}
 }
 
 void	ft_close_window(void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = (t_game *)param;
 	clean_exit(game, 0);

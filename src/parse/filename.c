@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filename.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 14:18:14 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/14 17:01:23 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/08/18 19:30:24 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/08/18 19:36:45 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*check_file(char **argv)
 	len = ft_strlen(file);
 	if (len < 4 || ft_strncmp(file + len - 4, ".ber", 4) != 0)
 		ft_error("Error: map name is not valid.\n");
-	filepath = malloc(ft_strlen("src/maps/") + ft_strlen(file) + 1);
+	filepath = malloc((ft_strlen("src/maps/")) + ft_strlen(file) + 1);
 	if (!filepath)
 		ft_error("Error: allocation failed in filepath.\n");
 	ft_strlcpy(filepath, "src/maps/", ft_strlen("src/maps/") + 1);

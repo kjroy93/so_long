@@ -68,12 +68,12 @@ clean:
 	@echo "Swosh 🧹 Swosh Removing object files..."
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) clean > /dev/null 2>&1
-	@rm -rf $(MLX42_DIR)/build
 
 fclean: clean
 	@echo "Swosh 🧹🧹 Swosh Removing executable and libraries..."
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean > /dev/null 2>&1
+	@rm -rf $(MLX42_DIR)/build
 
 re: fclean all
 

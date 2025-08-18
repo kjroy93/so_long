@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   playable_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 16:14:59 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/14 17:00:54 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/08/18 19:15:34 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/08/18 22:22:55 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	find_player(char **copy, t_game *game)
 	while (copy[y])
 	{
 		x = 0;
-		while (copy[x])
+		while (copy[y][x])
 		{
 			if (copy[y][x] == 'P')
 			{
@@ -61,7 +61,7 @@ static void	find_player(char **copy, t_game *game)
 
 static void	flood_fill(char **copy, int x, int y, t_game *game)
 {
-	if ((x < 0 || y < 0 ) || (x >= game->map.width || y >= game->map.height))
+	if ((x < 0 || y < 0) || (x >= game->map.width || y >= game->map.height))
 		return ;
 	if (copy[y][x] == '1' || copy[y][x] == 'V')
 		return ;
@@ -101,12 +101,12 @@ bool	validate_path(t_game *game)
 
 	copy = copy_map(game);
 	if (!copy)
-		return (false);
+		return (NULL);
 	find_player(copy, game);
 	flood_fill(copy, game->player_x, game->player_y, game);
 	if (!map_playable(copy))
 	{
-		ft_printf("Error: The map is not playable.\n");
+		ft_printf("Error: the map is not playable.\n");
 		free_grid(copy);
 		return (false);
 	}

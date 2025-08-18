@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:55 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/14 17:27:23 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/18 19:38:34 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft.h"
 
 void	free_grid(char **grid)
 {
@@ -38,8 +39,8 @@ bool	cleanup_and_return(t_list **lst, t_map *map, bool status)
 
 void	error_free(char *line, int fd, char *message)
 {
-	close(fd);
 	free(line);
+	close(fd);
 	get_next_line(-1);
 	ft_printf(message);
 }

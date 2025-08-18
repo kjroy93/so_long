@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/16 20:18:23 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/18 22:22:31 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	read_map_lines(int fd, t_map *map, t_list **lines)
 	{
 		remove_newline(line);
 		if (!validate_line_not_empty(line))
-			return (error_free(line, fd, "Error: No line.\n"), false);
+			return (error_free(line, fd, "Error: no line.\n"), false);
 		if (map->width == 0)
 			map->width = (int)ft_strlen(line);
 		else if (((int)ft_strlen(line)) != map->width)
@@ -64,20 +64,20 @@ static bool	validate_walls(t_list **lines, t_map *map)
 	while (*line)
 	{
 		if (*line++ != '1')
-			return (ft_printf("Error: Map is open from the top\n"), false);
+			return (ft_printf("Error: map open from the top.\n"), false);
 	}
 	while (tmp->next && tmp->next->next)
 	{
 		line = (char *)tmp->next->content;
 		if (line[0] != '1' || line[map->width - 1] != '1')
-			return (ft_printf("Error: Map is open on the sides\n"), false);
+			return (ft_printf("Error: map open on the sides.\n"), false);
 		tmp = tmp->next;
 	}
 	line = (char *)tmp->next->content;
 	while (*line)
 	{
 		if (*line++ != '1')
-			return (ft_printf("Error: Map is open from the bottom\n"), false);
+			return (ft_printf("Error: map open on the bottom.\n"), false);
 	}
 	return (true);
 }
@@ -88,7 +88,7 @@ bool	parse_map(char *file, t_map *map, t_list **lst)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error: file could not be opened"), false);
+		return (ft_printf("Error: file could not be opened.\n"), false);
 	if (!read_map_lines(fd, map, lst))
 	{
 		close(fd);

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 19:09:45 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/16 20:18:04 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/18 22:23:31 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft.h"
 
 bool	count_elements(t_map *map, char *line)
 {
@@ -27,10 +28,39 @@ bool	count_elements(t_map *map, char *line)
 			map->collectibles_counts++;
 		else if (line[i] != '0' && line[i] != '1')
 		{
-			ft_printf("Error: The map content is not valid.\n");
+			ft_printf("Error: the map content is not valid\n");
 			return (false);
 		}
 		i++;
+	}
+	return (true);
+}
+
+bool	validate_walls(t_list *lines, int map_len)
+{
+	t_list	*tmp;
+	char	*line;
+
+	tmp = lines;
+	line = (char *)tmp->content;
+	while (*line)
+	{
+		if (*line++ != '1')
+			return (ft_printf("Erro: map is open from the top.\n"), false);
+	}
+	while (tmp->next && tmp->next->next)
+	{
+		line = (char *)tmp->next->content;
+		if (line[0] != '1' || line[map_len - 1] != '1')
+			return (ft_printf("Error: map is open on the sides.\n"), false);
+		tmp = tmp->next;
+	}
+	line = (char *)tmp->next->content;
+	while (*line)
+	{
+		if (*line != '1')
+			return (ft_printf("Error: map open from the bottom.\n"), false);
+		line++;
 	}
 	return (true);
 }
@@ -80,7 +110,7 @@ bool	content_create(t_map *map, t_list *lines)
 	if (map->player_counts != 1 || map->exit_counts < 1
 		|| map->collectibles_counts < 1)
 	{
-		ft_printf("Error: Missing Element.\n");
+		ft_printf("Error: missing element.\n");
 		return (false);
 	}
 	map->grid = create_array(lines);

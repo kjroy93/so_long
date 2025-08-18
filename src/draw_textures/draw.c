@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 16:59:49 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/16 20:28:36 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/08/18 19:53:10 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/08/18 21:19:24 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ static mlx_image_t	*load_png(t_game *game, char *path)
 	texture = mlx_load_png(path);
 	if (!texture)
 	{
-		ft_printf("Error: texture load falied: %s.\n", path);
+		ft_printf("Error; texture load failed: %s.\n", path);
 		clean_exit(game, 0);
 	}
 	image = mlx_texture_to_image(game->mlx, texture);
 	mlx_delete_texture(texture);
 	if (!image)
 	{
-		ft_printf("Error: the image for %s, was not created.", path);
+		ft_printf("Error: image load failed: %s.\n", path);
 		clean_exit(game, 0);
 	}
 	return (image);
@@ -89,10 +89,10 @@ static mlx_image_t	*load_png(t_game *game, char *path)
 
 void	disable_collectible(t_game *game, int x, int y)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < (game->tx.collect->count))
+	while (i < (game->map.collectibles_counts))
 	{
 		if (((game->tx.collect->instances[i].x) == (x * TILE))
 			&& ((game->tx.collect->instances[i].y) == (y * TILE)))
