@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:37:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/18 22:22:43 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:49:49 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ static void	map_init(t_game *game)
 	game->moves = 0;
 }
 
-static void	validate_map(t_game **game, t_list **lst, char *filepath)
+static void	validate_map(t_game **game, t_list **lst, char *file)
 {
 	bool	answer;
 
-	answer = parse_map(filepath, &(*game)->map, lst);
-	free(filepath);
+	answer = parse_map(file, &(*game)->map, lst);
 	if (!answer)
 	{
 		if ((*game)->map.grid)
@@ -54,19 +53,19 @@ static void	validate_map(t_game **game, t_list **lst, char *filepath)
 
 int	main(int argc, char **argv)
 {
-	char	*filepath;
+	char	*file;
 	t_game	*game;
 	t_list	*lst;
 
 	if (argc != 2)
 		return (write(2, "Error: not valid amount of arguments.\n", 39), 1);
-	filepath = check_file(argv);
 	game = malloc(sizeof(t_game));
 	if (!game)
 		ft_error("Error: allocation failed for game.\n");
 	lst = NULL;
 	map_init(game);
-	validate_map(&game, &lst, filepath);
+	file = argv[1];
+	validate_map(&game, &lst, file);
 	game->mlx = mlx_init(game->map.width * TILE,
 			game->map.height * TILE, "so_long", true);
 	mlx_get_monitor_size(0, &game->screen_w, &game->screen_h);
@@ -74,9 +73,5 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game->mlx, ft_key_hook, game);
 	mlx_close_hook(game->mlx, ft_close_window, game);
 	mlx_loop(game->mlx);
-	clean_exit(game, 0);
-	free_grid(game->map.grid);
-	free(game);
-	mlx_terminate(game->mlx);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/16 20:07:53 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/20 22:55:18 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,6 @@ typedef struct s_textures
 	mlx_image_t	*player;
 }	t_textures;
 
-typedef struct s_player
-{
-	mlx_image_t	*right;
-	mlx_image_t	*left;
-	mlx_image_t	*front;
-	mlx_image_t	*back;
-	int			anim_frame;
-	char		direction;
-}	t_player;
-
-typedef struct s_exit
-{
-	mlx_image_t	*sprites;
-	int			exit_x;
-	int			exit_y;
-	int			anim_frame;
-}	t_exit;
-
 typedef struct s_map
 {
 	int		collectibles_counts;
@@ -59,10 +41,7 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t	*player_img;
-	mlx_image_t	*move_txt;
 	t_map		map;
-	t_player	player;
-	t_exit		exit;
 	t_textures	tx;
 	void		*window;
 	int			points;
@@ -71,6 +50,7 @@ typedef struct s_game
 	int			player_y;
 	int			screen_h;
 	int			screen_w;
+	int			won;
 }	t_game;
 
 //  Free the grid of the map structure.
@@ -90,7 +70,7 @@ bool	parse_map(char *file, t_map *map, t_list **lst);
 // Function to create the array that is the map.
 char	**create_array(t_list *list);
 
-// Function that creates the grid and validates the player collectibles and exit.
+// Function that creates the grid and validate the elements.
 bool	content_create(t_map *map, t_list *lines);
 
 // Function that counts the elements in the lines inplace,
@@ -101,20 +81,22 @@ bool	count_elements(t_map *map, char *line);
 // Update the lenght of the map. 
 bool	create_lst(t_list **nodes, char *line, int *count);
 
-// Function to determine if the map .name is valid
-char	*check_file(char **argv);
-
 // Function that verifies if the game is playable
 bool	validate_path(t_game *game);
 
+// Function to exit the program, after map and mlx freed and terminated
 void	clean_exit(t_game *game, int code);
 
+// Function to be executed by the mlx_key_hhok
 void	ft_key_hook(mlx_key_data_t keydata, void *param);
 
+// Function to close the window
 void	ft_close_window(void *param);
 
+// Function to disable the collectibles
 void	disable_collectible(t_game *game, int x, int y);
 
+// Conver png->to_texture->to_image
 void	draw_all_textures(t_game *game, t_textures *tx);
 
 #endif

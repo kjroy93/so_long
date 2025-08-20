@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:55 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/18 19:38:34 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/19 20:30:38 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,21 @@ void	clean_exit(t_game *game, int code)
 {
 	if (game->map.grid)
 		free_grid(game->map.grid);
+	if (game->tx.collect)
+		mlx_delete_image(game->mlx, game->tx.collect);
+	if (game->tx.player)
+		mlx_delete_image(game->mlx, game->tx.player);
+	if (game->tx.exit)
+		mlx_delete_image(game->mlx, game->tx.exit);
+	if (game->tx.grass)
+		mlx_delete_image(game->mlx, game->tx.grass);
+	if (game->tx.wall)
+		mlx_delete_image(game->mlx, game->tx.wall);
 	if (game->mlx)
 	{
 		mlx_close_window(game->mlx);
 		mlx_terminate(game->mlx);
 	}
+	free(game);
 	exit(code);
 }
