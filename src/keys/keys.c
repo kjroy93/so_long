@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:40:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/19 20:22:29 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 00:17:32 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ static void	render_move(t_game *game, int x, int y)
 
 static void	move_player(t_game *game, int x, int y)
 {
-	if (game->map.grid[y][x] == '1')
+	if (game->map.map_grid[y][x] == '1')
 		return ;
-	if (game->map.grid[y][x] == 'C')
+	if (game->map.map_grid[y][x] == 'C')
 	{
-		game->map.grid[y][x] = '0';
+		game->map.map_grid[y][x] = '0';
 		disable_collectible(game, x, y);
 		game->points++;
 	}
 	render_move(game, x, y);
 	ft_printf("Moves: %i\n", game->moves);
-	if (game->map.grid[y][x] == 'E'
+	if (game->map.map_grid[y][x] == 'E'
 		&& game->points == game->map.collectibles_counts)
 	{
 		ft_printf("WINNER!\n");

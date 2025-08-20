@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:57:26 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/18 22:22:31 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 00:48:00 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ bool	parse_map(char *file, t_map *map, t_list **lst)
 		close(fd);
 		return (cleanup_and_return(lst, map, false));
 	}
-	if (!content_create(map, *lst))
+	if (!create_map(map, *lst))
 	{
 		close(fd);
 		return (cleanup_and_return(lst, map, false));

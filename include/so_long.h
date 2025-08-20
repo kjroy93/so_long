@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/20 22:55:18 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 01:39:55 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_map
 	int		exit_counts;
 	int		height;
 	int		width;
-	char	**grid;
+	char	**map_grid;
 }	t_map;
 
 typedef struct s_game
@@ -43,20 +43,22 @@ typedef struct s_game
 	mlx_image_t	*player_img;
 	t_map		map;
 	t_textures	tx;
-	void		*window;
 	int			points;
 	int			moves;
 	int			player_x;
 	int			player_y;
 	int			screen_h;
 	int			screen_w;
-	int			won;
 }	t_game;
 
 //  Free the grid of the map structure.
 void	free_grid(char **grid);
 
+// Function to free and close fd.
 void	error_free(char *line, int fd, char *message);
+
+// Function to check if the map is too big.
+void	validate_map_size(t_game *game);
 
 // Free and returns when the parsers fails.
 bool	cleanup_and_return(t_list **lst, t_map *map, bool status);
@@ -71,7 +73,7 @@ bool	parse_map(char *file, t_map *map, t_list **lst);
 char	**create_array(t_list *list);
 
 // Function that creates the grid and validate the elements.
-bool	content_create(t_map *map, t_list *lines);
+bool	create_map(t_map *map, t_list *lines);
 
 // Function that counts the elements in the lines inplace,
 // when get_next_line reads.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 19:09:45 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/20 22:42:33 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 01:18:57 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,26 @@ char	**create_array(t_list *list)
 	return (array);
 }
 
-bool	content_create(t_map *map, t_list *lines)
+void	validate_map_size(t_game *game)
+{
+	int	screen_w;
+	int	screen_h;
+
+	screen_w = game->map.width * TILE;
+	screen_h = game->map.height * TILE;
+	if (game->screen_w == 0 && game->screen_h == 0)
+	{
+		game->screen_w = 1920;
+		game->screen_h = 1080;
+	}
+	if (screen_w > game->screen_w || screen_h > game->screen_h)
+	{
+		ft_printf("Error: The map is too big.\n");
+		clean_exit(game, 1);
+	}
+}
+
+bool	create_map(t_map *map, t_list *lines)
 {
 	if (map->player_counts != 1 || map->exit_counts < 1
 		|| map->collectibles_counts < 1)
@@ -84,8 +103,8 @@ bool	content_create(t_map *map, t_list *lines)
 		ft_printf("Error: missing element.\n");
 		return (false);
 	}
-	map->grid = create_array(lines);
-	if (!map->grid)
+	map->map_grid = create_array(lines);
+	if (!map->map_grid)
 		return (false);
 	return (true);
 }

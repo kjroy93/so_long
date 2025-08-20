@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:53:10 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/18 21:19:24 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 00:17:04 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ static void	draw_map(t_game *game, t_textures *tx)
 	int	y;
 
 	y = 0;
-	while (game->map.grid[y])
+	while (game->map.map_grid[y])
 	{
 		x = 0;
-		while (game->map.grid[y][x])
+		while (game->map.map_grid[y][x])
 		{
 			mlx_image_to_window(game->mlx, tx->grass,
 				(x * TILE), (y * TILE));
-			if (game->map.grid[y][x] == '1')
+			if (game->map.map_grid[y][x] == '1')
 				mlx_image_to_window(game->mlx, tx->wall,
 					(x * TILE), (y * TILE));
-			else if (game->map.grid[y][x] == 'E')
+			else if (game->map.map_grid[y][x] == 'E')
 				mlx_image_to_window(game->mlx, tx->exit,
 					(x * TILE), (y * TILE));
-			else if (game->map.grid[y][x] == 'C')
+			else if (game->map.map_grid[y][x] == 'C')
 				mlx_image_to_window(game->mlx, tx->collect,
 					(x * TILE), (y * TILE));
 			x++;
@@ -46,12 +46,12 @@ static void	draw_player(t_game *game, t_textures *tx)
 	int	y;
 
 	y = 0;
-	while (game->map.grid[y])
+	while (game->map.map_grid[y])
 	{
 		x = 0;
-		while (game->map.grid[y][x])
+		while (game->map.map_grid[y][x])
 		{
-			if (game->map.grid[y][x] == 'P')
+			if (game->map.map_grid[y][x] == 'P')
 			{
 				mlx_image_to_window(game->mlx, tx->player,
 					(x * TILE), (y * TILE));

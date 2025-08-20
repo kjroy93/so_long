@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   playable_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:15:34 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/18 22:22:55 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 00:17:46 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static char	**copy_map(t_game *game)
 	if (!copy)
 		return (NULL);
 	i = 0;
-	while (game->map.grid[i])
+	while (game->map.map_grid[i])
 	{
-		copy[i] = ft_strdup(game->map.grid[i]);
+		copy[i] = ft_strdup(game->map.map_grid[i]);
 		if (!copy)
 		{
 			while (--i >= 0)

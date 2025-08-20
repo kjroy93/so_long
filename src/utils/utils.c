@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:55 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/19 20:30:38 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/21 00:19:17 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft.h"
 
 void	free_grid(char **grid)
 {
@@ -32,8 +31,8 @@ bool	cleanup_and_return(t_list **lst, t_map *map, bool status)
 {
 	if (lst && *lst)
 		ft_lstclear(lst, free);
-	if (map && map->grid)
-		free_grid(map->grid);
+	if (map && map->map_grid)
+		free_grid(map->map_grid);
 	return (status);
 }
 
@@ -53,8 +52,8 @@ void	ft_error(char *message)
 
 void	clean_exit(t_game *game, int code)
 {
-	if (game->map.grid)
-		free_grid(game->map.grid);
+	if (game->map.map_grid)
+		free_grid(game->map.map_grid);
 	if (game->tx.collect)
 		mlx_delete_image(game->mlx, game->tx.collect);
 	if (game->tx.player)
