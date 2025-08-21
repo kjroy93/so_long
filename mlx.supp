@@ -1,0 +1,33 @@
+{
+   mlx_leaks
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+}
+
+{
+   mlx_leaks_calloc
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   ...
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+}
+
+{
+   mlx_leaks_malloc
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   ...
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+}
+{
+   mlx_terminate_leak
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   ...
+   fun:mlx_terminate
+}

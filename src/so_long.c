@@ -6,29 +6,11 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:37:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/21 10:36:18 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/21 14:49:58 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static void	map_init(t_game *game)
-{
-	game->map.collectibles_counts = 0;
-	game->map.exit_counts = 0;
-	game->map.height = 0;
-	game->map.map_grid = NULL;
-	game->map.player_counts = 0;
-	game->map.width = 0;
-	game->mlx = NULL;
-	game->moves = 0;
-	game->player_img = NULL;
-	game->player_x = 0;
-	game->player_y = 0;
-	game->points = 0;
-	game->screen_h = 0;
-	game->screen_w = 0;
-}
 
 static void	validate_extension(const char *filename)
 {
@@ -86,7 +68,7 @@ int	main(int argc, char **argv)
 	game = malloc(sizeof(t_game));
 	if (!game)
 		ft_error("Error: allocation failed for game.\n");
-	map_init(game);
+	ft_memset(game, 0, sizeof(t_game));
 	lst = NULL;
 	mlx_get_monitor_size(0, &game->screen_w, &game->screen_h);
 	validate_map(&game, &lst, file);
@@ -96,6 +78,7 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game->mlx, ft_key_hook, game);
 	mlx_close_hook(game->mlx, ft_close_window, game);
 	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
 	clean_exit(game, 0);
 	return (0);
 }

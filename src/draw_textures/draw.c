@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:53:10 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/21 00:17:04 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/21 14:23:06 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ static mlx_image_t	*load_png(t_game *game, char *path)
 	texture = mlx_load_png(path);
 	if (!texture)
 	{
-		ft_printf("Error; texture load failed: %s.\n", path);
-		clean_exit(game, 0);
+		ft_printf("Error: texture load failed: %s.\n", path);
+		clean_exit(game, 1);
 	}
 	image = mlx_texture_to_image(game->mlx, texture);
 	mlx_delete_texture(texture);
 	if (!image)
 	{
 		ft_printf("Error: image load failed: %s.\n", path);
-		clean_exit(game, 0);
+		clean_exit(game, 1);
 	}
 	return (image);
 }
