@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:37:02 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/21 01:41:05 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/21 02:11:39 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game->mlx, ft_key_hook, game);
 	mlx_close_hook(game->mlx, ft_close_window, game);
 	mlx_loop(game->mlx);
+	clean_exit(game, 0);
 	return (0);
 }
