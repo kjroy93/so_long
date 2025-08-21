@@ -6,12 +6,11 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 19:09:45 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/21 01:18:57 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/21 11:58:10 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft.h"
 
 bool	count_elements(t_map *map, char *line)
 {
