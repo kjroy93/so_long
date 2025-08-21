@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:14:00 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/21 01:39:55 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:16:14 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_game
 }	t_game;
 
 //  Free the grid of the map structure.
-void	free_grid(char **grid);
+void	free_map(char **grid);
 
 // Function to free and close fd.
 void	error_free(char *line, int fd, char *message);

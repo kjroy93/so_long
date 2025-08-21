@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:15:34 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/21 00:17:46 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:17:30 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ bool	validate_path(t_game *game)
 	if (!map_playable(copy))
 	{
 		ft_printf("Error: the map is not playable.\n");
-		free_grid(copy);
+		free_map(copy);
 		return (false);
 	}
-	free_grid(copy);
+	free_map(copy);
 	return (true);
 }
